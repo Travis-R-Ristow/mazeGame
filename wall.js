@@ -3,47 +3,67 @@
 // var lastWall = {x: 0, y: 0, w: width/25, h: height};
 
 class wall{
-	constructor(x, y, width , height, pointer){
+	constructor(x, y, size, direction, previous, pointer){
 		this.x = x;
 		this.y = y;
-		this.w = width;
-		this.h = height;
-		this.p = pointer;		
+		this.size = size;
+		this.dir = direction
+		this.p = pointer;
+		this.prev = previous;
+		// maybe a before-pointer for resizing walls	
 	}
 
+
 	draw(){
-		rect(this.x, this.y, this.w, this.h);
+		strokeWeight(this.size/5);
+		if(this.dir == "+x"){
+			line(this.x, this.y, this.x + this.size, this.y);
+		}
+		if(this.dir == "-x"){
+			line(this.x, this.y, this.x - this.size, this.y);
+		}
+		if(this.dir == "+y"){
+			line(this.x, this.y, this.x, this.y + this.size);
+		}
+		if(this.dir == "-y"){
+			line(this.x, this.y, this.x, this.y - this.size);
+		}
+		strokeWeight(1);
 	}
 
 
 // GETTERS AND SETTERS
-	getXpos(){
+	getX(){
 		return this.x;
 	}
-		setXpos(xPos){
-			this.x = xPos;
+		setX(x){
+			this.x = x;
 		}
 
-	getYpos(){
+
+	getY(){
 		return this.y;
 	}
-		setYpos(yPos){
-			this.y = yPos;
+		setY(y){
+			this.y = y;
 		}
 
-	getWidth(){
-		return this.w;
+
+	getSize(){
+		return this.size;
 	}
-		setWidth(width){
-			this.w = width;
+		setSize(sz){
+			this.size = sz
 		}
 
-	getHeight(){
-		return this.h;
+
+	getDir(){
+		return this.dir;
 	}
-		setHeight(height){
-			this.h = height;
+		setDir(direction){
+			this.dir = direction
 		}
+
 
 	getPointer(){
 		return this.p;
@@ -51,11 +71,15 @@ class wall{
 		setPointer(pointer){
 			this.p = pointer;
 		}
+
+
+	getPrev(){
+		return this.prev;
+	}
+		setPrev(previous){
+			this.prev = previous;
+		}
+
+
 }
 
-
-// function makeWalls(){
-// 	newWall = new wall(0,0,width/25,height);
-// 	walls.push(newWall);
-// 	// lastWall = {x: 0, y: 0, w: width/25, h: height};
-// }
