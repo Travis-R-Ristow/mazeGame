@@ -11,13 +11,17 @@ function setup() {
 	gridSZ = dusty.getSize()*3;
     startingWall = new wall(0, 0, gridSZ, "+y");
 	walls = new wallList(startingWall);
+	for(var c=0; c < 1000; c++){
+    	makeSomeWalls();
+	}
     walls.printWalls();
+    
 }
 
 
 function draw() {
     background(102, 153, 0);
-    // dusty.draw();
+    dusty.draw();
     walls.drawAllWalls();
 }
 
@@ -34,9 +38,23 @@ function windowResized() {
         runnerNode.setSize(dusty.getSize()*3);
         
         if(runnerNode.getPrev() != null){
-            var previousNode = runnerNode.getPrev(); 
-            runnerNode.setXpos();
-            runnerNode.setYpos();
+            var previousNode = runnerNode.getPrev();
+            if(previousNode.getDir() == "+x"){
+				runnerNode.setX(previousNode.getX()+previousNode.getSize());
+            	runnerNode.setY(previousNode.getY());
+			}
+			if(previousNode.getDir() == "-x"){
+				runnerNode.setX(previousNode.getX()-previousNode.getSize());
+            	runnerNode.setY(previousNode.getY());
+			}
+			if(previousNode.getDir() == "+y"){
+				runnerNode.setX(previousNode.getX());
+            	runnerNode.setY(previousNode.getY()+previousNode.getSize());
+			}
+			if(previousNode.getDir() == "-y"){
+				runnerNode.setX(previousNode.getX());
+            	runnerNode.setY(previousNode.getY()-previousNode.getSize());
+			}
         }            
         
         runnerNode = runnerNode.getPointer();
@@ -46,22 +64,38 @@ function windowResized() {
 //  ~  MAKE WALLS  ~  \\
 
 function makeSomeWalls(){
-	
-    walls.addWall(new wall());
+	var lastWall = walls.getTail();
+	var newWall;
+	if(lastWall.getDir() == "+x"){
+		newWall = new wall(lastWall.getX()+lastWall.getSize(), lastWall.getY(), gridSZ, randomDir(1));
+	}
+	if(lastWall.getDir() == "-x"){
+		newWall = new wall(lastWall.getX()-lastWall.getSize(), lastWall.getY(), gridSZ, randomDir(0));
+	}
+	if(lastWall.getDir() == "+y"){
+		newWall = new wall(lastWall.getX(), lastWall.getY()+lastWall.getSize(), gridSZ, randomDir(3));
+	}
+	if(lastWall.getDir() == "-y"){
+		newWall = new wall(lastWall.getX(), lastWall.getY()-lastWall.getSize(), gridSZ, randomDir(2));
+	}
+    walls.add(newWall);
 }
 
-function randomDir(){
-    var rando = floor(random(5));
-    if(rando === 1){
+function randomDir(CantB){
+    var rando = floor(random(4));;
+    while(rando == CantB){
+    	rando = floor(random(4));
+    }
+    if(rando === 0){
         return "+x";
     }
-    if(rando === 2){
+    if(rando === 1){
         return "-x";
     }
-    if(rando === 3){
+    if(rando === 2){
         return "+y";
     }
-    if(rando === 4){
+    if(rando === 3){
         return "-y";
     }
 }

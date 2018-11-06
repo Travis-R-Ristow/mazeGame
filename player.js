@@ -1,10 +1,12 @@
 class player {
 	constructor(size){
 		this.sz = size;
+		this.x = width/2-(this.sz/2);
+		this.y = height/2-(this.sz/2);
 	}
 
 	draw(){
-		rect(width/2-(this.sz/2), height/2-(this.sz/2), this.sz, this.sz);
+		rect(this.x, this.y, this.sz, this.sz);
 	}
 
 	getSize(){
