@@ -5,10 +5,14 @@ class wallList{
 	}
 
 
-	add(newNode){
-		this.tail.setPointer(newNode);
-		newNode.setPrev(this.tail);
-		this.tail = newNode;
+	add(newNode, index){
+		if(index == null){
+			this.tail.setPointer(newNode);
+			newNode.setPrev(this.tail);
+			this.tail = newNode;
+		} else {
+			
+		}
 	}
 
 
@@ -44,6 +48,35 @@ class wallList{
 			runnerNode.draw();
 			runnerNode = runnerNode.getPointer();
 		}
+	}
+
+	screenResize(){
+		var runnerNode = this.head;
+	    while(runnerNode != null){
+	        runnerNode.setSize(dusty.getSize()*3);
+	        
+	        if(runnerNode.getPrev() != null){
+	            var previousNode = runnerNode.getPrev();
+	            if(previousNode.getDir() == "+x"){
+					runnerNode.setX(previousNode.getX()+previousNode.getSize());
+	            	runnerNode.setY(previousNode.getY());
+				}
+				if(previousNode.getDir() == "-x"){
+					runnerNode.setX(previousNode.getX()-previousNode.getSize());
+	            	runnerNode.setY(previousNode.getY());
+				}
+				if(previousNode.getDir() == "+y"){
+					runnerNode.setX(previousNode.getX());
+	            	runnerNode.setY(previousNode.getY()+previousNode.getSize());
+				}
+				if(previousNode.getDir() == "-y"){
+					runnerNode.setX(previousNode.getX());
+	            	runnerNode.setY(previousNode.getY()-previousNode.getSize());
+				}
+	        }            
+	        
+	        runnerNode = runnerNode.getPointer();
+	    }
 	}
 }
 

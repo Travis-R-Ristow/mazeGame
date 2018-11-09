@@ -14,7 +14,8 @@ function setup() {
 	for(var c=0; c < 1000; c++){
     	makeSomeWalls();
 	}
-    walls.printWalls();
+    // walls.printWalls();
+    console.log(document.getElementById("game"));
     
 }
 
@@ -22,6 +23,8 @@ function setup() {
 function draw() {
     background(102, 153, 0);
     dusty.draw();
+    // dusty.move();
+
     walls.drawAllWalls();
 }
 
@@ -30,35 +33,10 @@ function windowResized() {
     resizeCanvas(windowWidth/1.1, windowHeight/1.1);
 
     // PLAYER \\
-    dusty.setSize(width/10);
+    dusty.screenResize();
 
     // WALLS \\
-    var runnerNode = walls.getHead();
-    while(runnerNode != null){
-        runnerNode.setSize(dusty.getSize()*3);
-        
-        if(runnerNode.getPrev() != null){
-            var previousNode = runnerNode.getPrev();
-            if(previousNode.getDir() == "+x"){
-				runnerNode.setX(previousNode.getX()+previousNode.getSize());
-            	runnerNode.setY(previousNode.getY());
-			}
-			if(previousNode.getDir() == "-x"){
-				runnerNode.setX(previousNode.getX()-previousNode.getSize());
-            	runnerNode.setY(previousNode.getY());
-			}
-			if(previousNode.getDir() == "+y"){
-				runnerNode.setX(previousNode.getX());
-            	runnerNode.setY(previousNode.getY()+previousNode.getSize());
-			}
-			if(previousNode.getDir() == "-y"){
-				runnerNode.setX(previousNode.getX());
-            	runnerNode.setY(previousNode.getY()-previousNode.getSize());
-			}
-        }            
-        
-        runnerNode = runnerNode.getPointer();
-    }
+    walls.screenResize();
 }
 
 //  ~  MAKE WALLS  ~  \\
@@ -97,5 +75,34 @@ function randomDir(CantB){
     }
     if(rando === 3){
         return "-y";
+    }
+}
+
+function keyPressed(){
+    if(keyCode == 68){
+        dusty.setDir("right", true);
+    }
+    if(keyCode == 65){
+        dusty.setDir("left", true);
+    }
+    if(keyCode == 87){
+        dusty.setDir("up", true);
+    }
+    if(keyCode == 83){
+        dusty.setDir("down", true);
+    }
+}
+function keyReleased(){
+    if(keyCode == 68){
+        dusty.setDir("right", false);
+    }
+    if(keyCode == 65){
+        dusty.setDir("left", false);
+    }
+    if(keyCode == 87){
+        dusty.setDir("up", false);
+    }
+    if(keyCode == 83){
+        dusty.setDir("down", false);
     }
 }

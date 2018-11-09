@@ -3,11 +3,16 @@
 // var lastWall = {x: 0, y: 0, w: width/25, h: height};
 
 class wall{
-	constructor(x, y, size, direction, previous, pointer){
+	constructor(x, y, size, direction, health, previous, pointer){
 		this.x = x;
 		this.y = y;
 		this.size = size;
-		this.dir = direction
+		this.dir = direction;
+		if(health == null){
+			this.hp = 3;
+		} else {
+			this.hp = health;
+		}
 		this.p = pointer;
 		this.prev = previous;
 		// maybe a before-pointer for resizing walls	

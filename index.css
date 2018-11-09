@@ -2,7 +2,9 @@ body{
 	background-color: #99ccff;	/*	BLUE	*/
 	text-align: center;
 }
-canvas {
-	border: 3px solid black;
 
+#game canvas{
+	width: 50%;
+	height: 50%;
+	border: 3px solid black;
 }
