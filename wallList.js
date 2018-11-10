@@ -2,6 +2,10 @@ class wallList{
 	constructor(firstNode){
 		this.head = firstNode;
 		this.tail = firstNode;
+		this.right = false;
+		this.left = false;
+		this.up = false;
+		this.down = false;
 	}
 
 
@@ -31,6 +35,66 @@ class wallList{
 		this.tail = node;
 	}
 
+	getDir(direction){
+		if(direction == "right"){
+			return this.right;
+		}
+		if(direction == "left"){
+			return this.left;
+		}
+		if(direction == "up"){
+			return this.up;
+		}
+		if(direction == "down"){
+			return this.down;
+		}
+	}
+		setDir(direction, bool){
+			if(direction == "right"){
+				this.right = bool;
+			}
+			if(direction == "left"){
+				this.left = bool;
+			}
+			if(direction == "up"){
+				this.up = bool;
+			}
+			if(direction == "down"){
+				this.down = bool;
+			}
+		}
+
+
+	move(){
+		if(this.right){
+			var runnerNode = this.head;
+			while(runnerNode != null){
+				runnerNode.setX( runnerNode.getX()-dusty.getSpd());
+				runnerNode = runnerNode.getPointer();
+			}
+		}
+		if(this.left){
+			var runnerNode = this.head;
+			while(runnerNode != null){
+				runnerNode.setX( runnerNode.getX()+dusty.getSpd());
+				runnerNode = runnerNode.getPointer();
+			}
+		}
+		if(this.up){
+			var runnerNode = this.head;
+			while(runnerNode != null){
+				runnerNode.setY( runnerNode.getY()+dusty.getSpd());
+				runnerNode = runnerNode.getPointer();
+			}
+		}
+		if(this.down){
+			var runnerNode = this.head;
+			while(runnerNode != null){
+				runnerNode.setY( runnerNode.getY()-dusty.getSpd());
+				runnerNode = runnerNode.getPointer();
+			}
+		}
+	}
 
 	printWalls(){
 		var runnerNode = this.head;
@@ -52,9 +116,12 @@ class wallList{
 
 	screenResize(){
 		var runnerNode = this.head;
+		var offSetX = runnerNode.getX()/runnerNode.getSize();
+		var offSetY = runnerNode.getY()/runnerNode.getSize();
 	    while(runnerNode != null){
 	        runnerNode.setSize(dusty.getSize()*3);
-	        
+	        runnerNode.setX(offSetX*runnerNode.getSize());
+	        runnerNode.setY(offSetY*runnerNode.getSize());
 	        if(runnerNode.getPrev() != null){
 	            var previousNode = runnerNode.getPrev();
 	            if(previousNode.getDir() == "+x"){

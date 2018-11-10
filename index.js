@@ -26,6 +26,7 @@ function draw() {
     // dusty.move();
 
     walls.drawAllWalls();
+    walls.move();
 }
 
 
@@ -80,29 +81,29 @@ function randomDir(CantB){
 
 function keyPressed(){
     if(keyCode == 68){
-        dusty.setDir("right", true);
+        walls.setDir("right", true);
     }
     if(keyCode == 65){
-        dusty.setDir("left", true);
+        walls.setDir("left", true);
     }
     if(keyCode == 87){
-        dusty.setDir("up", true);
+        walls.setDir("up", true);
     }
     if(keyCode == 83){
-        dusty.setDir("down", true);
+        walls.setDir("down", true);
     }
 }
 function keyReleased(){
     if(keyCode == 68){
-        dusty.setDir("right", false);
+        walls.setDir("right", false);
     }
     if(keyCode == 65){
-        dusty.setDir("left", false);
+        walls.setDir("left", false);
     }
     if(keyCode == 87){
-        dusty.setDir("up", false);
+        walls.setDir("up", false);
     }
     if(keyCode == 83){
-        dusty.setDir("down", false);
+        walls.setDir("down", false);
     }
 }

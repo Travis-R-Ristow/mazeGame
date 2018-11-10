@@ -37,6 +37,13 @@ class player {
 			this.sz = size;
 		}
 
+	getSpd(){
+		return this.spd;
+	}
+		setSpd(speed){
+			this.spd = speed;
+		}
+
 	getDir(direction){
 		if(direction == "right"){
 			return this.right;
