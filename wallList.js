@@ -9,14 +9,35 @@ class wallList{
 	}
 
 
-	add(newNode, index){
-		if(index == null){
-			this.tail.setPointer(newNode);
-			newNode.setPrev(this.tail);
-			this.tail = newNode;
-		} else {
+	// add(newNode, index){
+	// 	if(index == null){
+	// 		this.tail.setPointer(newNode);
+	// 		newNode.setPrev(this.tail);
+	// 		this.tail = newNode;
+	// 	} else {
 			
+	// 	}
+	// }
+
+
+	addWall(){
+		var lastWall = this.tail;
+		var newWall;
+		if(lastWall.getDir() == "+x"){
+			newWall = new wall(lastWall.getX()+lastWall.getSize(), lastWall.getY(), gridSZ, randomDir(1));
 		}
+		if(lastWall.getDir() == "-x"){
+			newWall = new wall(lastWall.getX()-lastWall.getSize(), lastWall.getY(), gridSZ, randomDir(0));
+		}
+		if(lastWall.getDir() == "+y"){
+			newWall = new wall(lastWall.getX(), lastWall.getY()+lastWall.getSize(), gridSZ, randomDir(3));
+		}
+		if(lastWall.getDir() == "-y"){
+			newWall = new wall(lastWall.getX(), lastWall.getY()-lastWall.getSize(), gridSZ, randomDir(2));
+		}
+    	lastWall.setPointer(newWall);
+		newWall.setPrev(this.tail);
+		this.tail = newWall;
 	}
 
 
@@ -147,3 +168,21 @@ class wallList{
 	}
 }
 
+function randomDir(CantB){
+    var rando = floor(random(4));;
+    while(rando == CantB){
+    	rando = floor(random(4));
+    }
+    if(rando === 0){
+        return "+x";
+    }
+    if(rando === 1){
+        return "-x";
+    }
+    if(rando === 2){
+        return "+y";
+    }
+    if(rando === 3){
+        return "-y";
+    }
+}
